@@ -31,14 +31,12 @@ def get_weather_by_city(city_name: str) -> dict:
     :return: Dictionary with params (temp, wind, precipitation).
     """
     try:
-        # Запрос на получение location_key
         location_url = f"{config.BASE_URL}/locations/v1/cities/search"
         location_params = {"apikey": config.API_KEY, "q": city_name}
         location_response = requests.get(location_url, params=location_params)
         location_data = location_response.json()
         location_key = location_data[0]["Key"]
 
-        # Запрос на получение погоды
         weather_url = f"{config.BASE_URL}/currentconditions/v1/{location_key}"
         weather_params = {"apikey": config.API_KEY, "details": "true"}
         weather_response = requests.get(weather_url, params=weather_params)
@@ -53,5 +51,11 @@ def get_weather_by_city(city_name: str) -> dict:
         raise ValueError(f"Failed to fetch weather data for city {city_name}: {str(e)}")
 
 
-def check_bad_weather(temperature: float, wind_speed: float, precipitation_probability: float) -> str:
-    return "неблагоприятные " if (temperature < -25 or temperature > 35) or (wind_speed > 50) or (precipitation_probability > 70) else "благоприятные"
+def check_bad_weather(temp: float, wind_speed: float, prec_prob: float) -> str:
+    """
+    Checks if the weather is good
+    :param temp: Current temperature
+    :param wind_speed: Current wind speed
+    :param prec_prob: Current precipiation probability
+    """
+    return "неблагоприятные " if (temp < -25 or temp > 35) or (wind_speed > 50) or (prec_prob > 70) else "благоприятные"
