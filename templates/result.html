@@ -45,7 +45,7 @@
         <p><bold>Температура</bold>: {{ end_weather.temperature }}°C</p>
         <p><bold>Скорость ветра</bold>: {{ end_weather.wind_speed }} км/ч</p>
         <p><bold>Вероятность осадков</bold>: {{ end_weather.precipitation_probability }}%</p>
-        <>{% if end_weather.conditions %}<bold>Условия</bold>: {{ end_weather.conditions }}{% else %}Ошибка получения данных о погоде. Проверьте названия городов.{% endif %}</p>
+        {% if end_weather.conditions %}<bold>Условия</bold>: {{ end_weather.conditions }}{% else %}Ошибка получения данных о погоде. Проверьте названия городов.{% endif %}</p>
     </div>
 
     <a href="{{ url_for('index') }}">Назад</a>
