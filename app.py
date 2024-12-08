@@ -33,8 +33,8 @@ def check_weather():
     end_city = request.form.get("end_city").strip()
 
     if not start_city or not end_city:
-        result = "Пожалуйста, заполните оба поля."
-        return render_template("index.html", result=result)
+        error = "Пожалуйста, заполните оба поля."
+        return render_template("index.html", error=error)
 
     try:
         start_weather = get_weather_by_city(start_city)
